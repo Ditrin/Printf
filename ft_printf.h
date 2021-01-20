@@ -1,3 +1,4 @@
+#include <ntsid.h>
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -6,7 +7,7 @@
 /*   By: cdanette <cdanette@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 01:53:25 by cdanette          #+#    #+#             */
-/*   Updated: 2021/01/18 00:07:00 by cdanette         ###   ########.fr       */
+/*   Updated: 2021/01/19 03:20:07 by cdanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +23,14 @@
 
 typedef struct	s_hole
 {
+	int trash;
 	int minus;
 	int zero;
-	int wight;
-	int pers;
+	int width;
+	int prec;
 }				t_hole;
+
+void	ft_fun_c(t_hole *hole, va_list ap);
 
 
 
