@@ -32,24 +32,24 @@ t_hole	init_hole(t_hole hole)
 	return (hole);
 }
 
-void ft_type(char **str, va_list ap, t_hole hole)
+int ft_type(char **str, va_list ap, t_hole hole)
 {
-	char *specif;
+	char	*specif;
+	int		count;
 
 	specif = "cspdiuxX%";
+	count = 0;
 	if (ft_strchr(specif, **str))
 	{
-		if (**str == 'c') {
+		if ((**str == 'c') && ++*str)
 			ft_fun_c(&hole, ap);
-			(++*str);
-		}
 		else if (**str == 's')
 			ft_putstr_fd(va_arg(ap, char *), 1);
 		else if (**str == 'p')
 		//написать функцию на вывод адреса
 			ft_putnbr_fd(va_arg(ap, size_t), 1);
-		else if (**str == 'd' || **str == 'i')
-			ft_putnbr_fd(va_arg(ap, int), 1);
+		else if ((**str == 'd' || **str == 'i') && ++*str)
+			count = ft_fun_d(va_arg(ap, int), hole);
 		else if (**str == 'u')
 			ft_putnbr_fd(va_arg(ap, unsigned int), 1); //редить функцию
 		else if (**str == 'x')
@@ -59,9 +59,10 @@ void ft_type(char **str, va_list ap, t_hole hole)
 		else if (**str == '%')
 			ft_putchar_fd('%', 1);
 	}
+	return (count);
 }
 
-void ft_parser(char **str, va_list ap, t_hole hole)
+int ft_parser(char **str, va_list ap, t_hole hole)
 {
 	while (**str == '-' || **str == '.' || **str == '*' || ft_isdigit(**str))
 	{
@@ -73,21 +74,20 @@ void ft_parser(char **str, va_list ap, t_hole hole)
 		{
 			hole.width = ft_atoi(*str);
 			while (ft_isdigit(**str))
-				str++;
+				(*str)++;
 		}
-		else if (**str == '*' && str++)
+		else if (**str == '*' && (*str)++)
 			hole.width = va_arg(ap, int);
 		else if (**str == '.' && *(*str + 1) == '*' && *(*str += 2))
 			hole.prec = va_arg(ap, int);
-		else if (**str == '.')
+		else if (**str == '.' && ++(*str))
 		{
 			hole.prec = ft_atoi(*str);
 			while (ft_isdigit(**str))
 				(*str)++;
-			(*str)++;
 		}
 	}
-	ft_type(str, ap, hole); //появилась с
+	return (ft_type(str, ap, hole));
 }
 
 int	ft_printf(char *str, ...)
@@ -97,7 +97,6 @@ int	ft_printf(char *str, ...)
 	int		nbr;
 
 	nbr = 0;
-
 	va_start(ap, str);
 	if (!str)
 		return (-1);
@@ -108,7 +107,7 @@ int	ft_printf(char *str, ...)
 			str++;
 			hole = init_hole(hole);
 			if (*str)
-				ft_parser(&str, ap, hole);
+				nbr += ft_parser(&str, ap, hole);
 		}
 
 		else if (*str && *str != '%')
@@ -122,28 +121,3 @@ int	ft_printf(char *str, ...)
 	va_end(ap);
 	return (nbr);
 }
-
-
-int	main()
-{
-//	char *s;
-//	// int slong;
-//
-//	//s = "dlfskdf";
-//	// slong = -2147483648;
-//	// ft_printf("my own: %d", s);
-//	// printf("%zu\n", ft_strlen(s));
-	// printf("not: %.*s\n", -10, NULL);
-	//printf("%c", 'c');
-	ft_printf("my = %.c\n", 's');
-	printf("or = %.c\n", 's');
-	//printf("%20i", 1000);
-	//printf("%0*2c\n", 8, 'c');
-	//ft_printf("%0*2c\n", 8, 'c');
-	// printf("not: %d\n", slong);
-	// printf("Not mine: %20d|%20d|\n", slong, slong);
-	//  printf(    "Not mine: %1.0u| %5.u| %0u| %u|\n", 0, 0, 0, 0);
-	//ft_putxnbr_fd(255, 1);
-	return (0);
-}
-
