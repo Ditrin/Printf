@@ -14,31 +14,53 @@
 #include "ft_printf.h"
 #include <stdarg.h>
 
-void	ft_fun_c(t_hole *hole, va_list ap)
+int	ft_fun_c(t_hole *hole, va_list ap)
 {
 	char symbol;
 	int digit;
+	int len;
 
+	len= 0;
 	digit = 0;
 	symbol = (char)va_arg(ap, int);
 	if (hole->width && hole->minus == 0)
 	{
 		digit = hole->width - 1;
-		while (digit--  > 0)
+		if (hole->zero == 0)
 		{
-			write(1, " ", 1);
+			while (digit-- > 0)
+			{
+				write(1, " ", 1);
+				len++;
+			}
+		}
+		else if (hole->zero != 0)
+		{
+			while (digit-- > 0)
+			{
+				write(1, "0", 1);
+				len++;
+			}
 		}
 		write(1, &symbol, 1);
+		len++;
 	}
 	else if (hole->width && hole->minus == 1)
 	{
 		digit = hole->width - 1;
 		write(1, &symbol, 1);
-		while (digit--  > 0)
+		len++;
+		while (digit-- > 0)
 		{
 			write(1, " ", 1);
+			len++;
 		}
 	}
 	else
+	{
 		write(1, &symbol, 1);
+		len++;
+	}
+//	return (len);
+return (hole->width > 0 ? hole->width : 1);
 }

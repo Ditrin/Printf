@@ -30,7 +30,10 @@ typedef struct	s_hole
 	int prec;
 }				t_hole;
 
-void	ft_fun_c(t_hole *hole, va_list ap);
+int		ft_printf(char *str, ...);
+int		ft_fun_c(t_hole *hole, va_list ap);
+int		ft_fun_d(int n, t_hole hole);
+int		ft_fun_s(char *str, t_hole hole);
 
 
 

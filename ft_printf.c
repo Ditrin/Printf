@@ -42,9 +42,9 @@ int ft_type(char **str, va_list ap, t_hole hole)
 	if (ft_strchr(specif, **str))
 	{
 		if ((**str == 'c') && ++*str)
-			ft_fun_c(&hole, ap);
+			count = ft_fun_c(&hole, ap);
 		else if (**str == 's')
-			ft_putstr_fd(va_arg(ap, char *), 1);
+			count = ft_fun_s(va_arg(ap, char *), hole);
 		else if (**str == 'p')
 		//написать функцию на вывод адреса
 			ft_putnbr_fd(va_arg(ap, size_t), 1);
@@ -116,7 +116,6 @@ int	ft_printf(char *str, ...)
 			nbr += 1;
 			str += 1;
 		}
-		//str += 1;
 	}
 	va_end(ap);
 	return (nbr);
