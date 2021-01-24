@@ -6,28 +6,17 @@
 
 int	main()
 {
-//	char *s;
+	char *s;
 //int slong;
-////
-////	//s = "dlfskdf";
+
+	s = "ZaD";
 //slong = -2147483648;
-////	// ft_printf("my own: %d", s);
-////	// printf("%zu\n", ft_strlen(s));
-//	// printf("not: %.*s\n", -10, NULL);
-//	//printf("%c", 'c');
-////	printf("my = %.6d\n", -3);
-////	ft_printf("my = %.6d", -3);
-////printf("%-5c\n", '2');
-////	ft_printf("%-5c\n", '2');
-////	printf("%5c\n", '2');
-////	ft_printf("%5c\n", '2');
-////	printf("%5c\n", 'h');
-////	ft_printf("%5c\n", 'h');
-//
-//	ft_printf("%d", slong);
-//	printf("%d", slong);
-	ft_printf("%c", 5);
-	printf("%c", 5);
+
+//ft_printf("%s%", s, s);
+//printf("%s%", s, s);
+//printf("%-09s", s);
+//	ft_printf("%c", 5);
+//	printf("%c", 5);
 //ft_printf("%07d\n", -54);
 //	printf("%07d\n", -54);
 //	ft_printf("%-07d", -54);

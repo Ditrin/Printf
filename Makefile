@@ -16,7 +16,10 @@ FLAGS = -Wall -Wextra -Werror -c
 
 SRCS = ft_fun_c.c \
         ft_fun_d.c \
-        ft_printf.c
+        ft_printf.c \
+        ft_fun_s.c \
+        ft_fun_p.c
+
 OBJ = $(patsubst %.c,%.o,$(SRCS))
 LIBA = ./libft
 #INCLUDES = ./includes

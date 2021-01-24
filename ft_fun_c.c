@@ -6,7 +6,7 @@
 /*   By: cdanette <cdanette@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 00:46:12 by cdanette          #+#    #+#             */
-/*   Updated: 2021/01/19 05:24:54 by cdanette         ###   ########.fr       */
+/*   Updated: 2021/01/24 05:53:23 by cdanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_fun_c(t_hole *hole, va_list ap)
 	int digit;
 	int len;
 
-	len= 0;
+	len = 0;
 	digit = 0;
 	symbol = (char)va_arg(ap, int);
 	if (hole->width && hole->minus == 0)

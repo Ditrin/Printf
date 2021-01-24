@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_fun_d.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdanette <cdanette@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/24 05:51:49 by cdanette          #+#    #+#             */
+/*   Updated: 2021/01/24 05:53:08 by cdanette         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft/libft.h"
 #include "ft_printf.h"
 #include <stdarg.h>
@@ -9,10 +21,10 @@ char	*ft_zero(char *str, int len, int kk)
 	char	*tmp;
 
 	i = 0;
-	if(!(new_str = ft_calloc(sizeof(char), kk + 1)))
-	return (NULL);
+	if (!(new_str = ft_calloc(sizeof(char), kk + 1)))
+		return (NULL);
 	tmp = str;
-	if (str[i] == '-') // && len-- && str++)
+	if (str[i] == '-')
 	{
 		len--;
 		str++;
@@ -31,7 +43,7 @@ char	*ft_zero2(char *str, int len, int kk)
 	char	*tmp;
 
 	i = 0;
-	if(!(new_str = ft_calloc(sizeof(char), kk)))
+	if (!(new_str = ft_calloc(sizeof(char), kk)))
 		return (NULL);
 	tmp = str;
 	if (str[i] == '-')
@@ -48,11 +60,11 @@ char	*ft_zero2(char *str, int len, int kk)
 
 char	*ft_space(char *str, t_hole hole, int len)
 {
-	char *new_str;
-	int i;
+	char	*new_str;
+	int		i;
 
 	i = 0;
-	if(!(new_str = ft_calloc(sizeof(char), hole.width + 1)))
+	if (!(new_str = ft_calloc(sizeof(char), hole.width + 1)))
 		return (NULL);
 	if (hole.minus > 0)
 	{
@@ -81,13 +93,13 @@ int		ft_fun_d(int n, t_hole hole)
 	if (hole.prec > len)
 		number = ft_zero(number, len, hole.prec);
 	len = ft_strlen(number);
-	if(hole.width > len)
+	if (hole.width > len)
 	{
 		if (hole.prec == 0)
 			number = ft_space(number, hole, 0);
 		else if (hole.zero > 0 && hole.prec < 0 && hole.minus > 0)
 			//number = ft_zero(number, len, hole.width);
-		{return (-1);}
+			return (-1);
 		else if (hole.zero > 0 && hole.prec < 0)
 			number = ft_zero2(number, len, hole.width);
 		else
@@ -98,15 +110,3 @@ int		ft_fun_d(int n, t_hole hole)
 	free(number);
 	return (len);
 }
-
-//if (hole.width > len)
-//{
-//if (hole.zero > 0 && hole.prec < 0)
-//{
-//if (*number == '-')
-//len++;
-//number = ft_zero(number, len, hole.width);
-//}
-//else
-//number = ft_space(number, hole, len);
-//}

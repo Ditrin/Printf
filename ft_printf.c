@@ -6,7 +6,7 @@
 /*   By: cdanette <cdanette@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 02:00:19 by cdanette          #+#    #+#             */
-/*   Updated: 2021/01/19 05:21:59 by cdanette         ###   ########.fr       */
+/*   Updated: 2021/01/24 06:07:25 by cdanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 #include <stdarg.h>
 #include <string.h>
 
-void	ft_putxnbr_fd(unsigned int n, int fd)
-{
-	if (n >= 16)
-		ft_putxnbr_fd(n / 16, fd);
-	ft_putchar_fd(n % 16 + (n % 16 > 9 ? 'A' - 10 : '0'), fd);
-}
+ void	ft_putxnbr_fd(unsigned int n, int fd)
+ {
+ 	if (n >= 16)
+ 		ft_putxnbr_fd(n / 16, fd);
+ 	ft_putchar_fd(n % 16 + (n % 16 > 9 ? 'A' - 10 : '0'), fd);
+ }
 
 t_hole	init_hole(t_hole hole)
 {
@@ -32,7 +32,7 @@ t_hole	init_hole(t_hole hole)
 	return (hole);
 }
 
-int ft_type(char **str, va_list ap, t_hole hole)
+int		ft_type(char **str, va_list ap, t_hole hole)
 {
 	char	*specif;
 	int		count;
@@ -43,11 +43,10 @@ int ft_type(char **str, va_list ap, t_hole hole)
 	{
 		if ((**str == 'c') && ++*str)
 			count = ft_fun_c(&hole, ap);
-		else if (**str == 's')
+		else if (**str == 's' && ++*str)
 			count = ft_fun_s(va_arg(ap, char *), hole);
-		else if (**str == 'p')
-		//написать функцию на вывод адреса
-			ft_putnbr_fd(va_arg(ap, size_t), 1);
+		else if (**str == 'p' && ++*str)
+			count = ft_fun_p((unsigned long long)va_arg(ap, int), hole);
 		else if ((**str == 'd' || **str == 'i') && ++*str)
 			count = ft_fun_d(va_arg(ap, int), hole);
 		else if (**str == 'u')
@@ -58,7 +57,8 @@ int ft_type(char **str, va_list ap, t_hole hole)
 			ft_putnbr_fd(va_arg(ap, unsigned int), 1); //редить функцию
 		else if (**str == '%')
 			ft_putchar_fd('%', 1);
-	}
+		count++;
+		}
 	return (count);
 }
 
@@ -100,7 +100,7 @@ int	ft_printf(char *str, ...)
 	va_start(ap, str);
 	if (!str)
 		return (-1);
-	while (*str != '\0') // my = %.c\n
+	while (*str != '\0')
 	{
 		if (*str && *str == '%')
 		{
