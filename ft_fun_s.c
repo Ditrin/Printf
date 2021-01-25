@@ -31,6 +31,7 @@ int	ft_fun_s(char *str, t_hole hole)
 	len = ft_strlen(str);
 	if (hole.minus == 1)
 	{
+		abc = ' ';
 		if (hole.prec != -1 && hole.prec < len)
 			len = hole.prec;
 		write(1, str, len);

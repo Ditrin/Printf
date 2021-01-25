@@ -46,18 +46,17 @@ int		ft_type(char **str, va_list ap, t_hole hole)
 		else if (**str == 's' && ++*str)
 			count = ft_fun_s(va_arg(ap, char *), hole);
 		else if (**str == 'p' && ++*str)
-			count = ft_fun_p((unsigned long long)va_arg(ap, int), hole);
+			count = ft_fun_p((unsigned long long)va_arg(ap, void *), hole);
 		else if ((**str == 'd' || **str == 'i') && ++*str)
 			count = ft_fun_d(va_arg(ap, int), hole);
-		else if (**str == 'u')
-			ft_putnbr_fd(va_arg(ap, unsigned int), 1); //редить функцию
+		else if (**str == 'u'&& ++*str)
+			count = ft_fun_u(va_arg(ap, unsigned int), hole);
 		else if (**str == 'x')
 			ft_putxnbr_fd(va_arg(ap, unsigned int), 1); //редить функцию
 		else if (**str == 'X')
 			ft_putnbr_fd(va_arg(ap, unsigned int), 1); //редить функцию
 		else if (**str == '%')
-			ft_putchar_fd('%', 1);
-		count++;
+			count = ft_fun_per(hole);
 		}
 	return (count);
 }

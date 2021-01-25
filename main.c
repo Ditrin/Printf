@@ -7,6 +7,18 @@
 int	main()
 {
 	char *s;
+	//static char	a01;
+//	static unsigned char a02;
+//	static short a03;
+//	static unsigned short a04;
+//	static int a05;
+//	static unsigned int a06;
+//	static long a07;
+//	static unsigned long a08;
+//	static long long a09;
+//	static unsigned long long a10;
+//	static char *a11;
+//	static void *a12;
 //int slong;
 
 	s = "ZaD";
@@ -17,12 +29,13 @@ int	main()
 //printf("%-09s", s);
 //	ft_printf("%c", 5);
 //	printf("%c", 5);
-//ft_printf("%07d\n", -54);
+ft_printf("%07d\n", -54);
 //	printf("%07d\n", -54);
-//	ft_printf("%-07d", -54);
-//	printf("%-07d", -54);
+//ft_printf("%-09s\n", "hi low");
+	//printf("%-09s\n");
+	//printf("%8p", &a01);
+//printf("%5p\n", 0);
 //	printf("my = %.6d\n", -3);
-//
 //	ft_printf("my = %0.f", 8, 4, 2.5);
 //	printf("my = %0.f", 8, 4, 2.5);
 	//printf("%20i", 1000);

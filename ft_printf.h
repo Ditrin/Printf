@@ -35,8 +35,8 @@ int		ft_fun_c(t_hole *hole, va_list ap);
 int		ft_fun_d(int n, t_hole hole);
 int		ft_fun_s(char *str, t_hole hole);
 int		ft_fun_p(unsigned long long n, t_hole hole);
-
-
+int		ft_fun_per(t_hole hole);
+int 	ft_fun_u(unsigned int i, t_hole hole);
 
 
 #endif

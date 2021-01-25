@@ -98,7 +98,6 @@ int		ft_fun_d(int n, t_hole hole)
 		if (hole.prec == 0)
 			number = ft_space(number, hole, 0);
 		else if (hole.zero > 0 && hole.prec < 0 && hole.minus > 0)
-			//number = ft_zero(number, len, hole.width);
 			return (-1);
 		else if (hole.zero > 0 && hole.prec < 0)
 			number = ft_zero2(number, len, hole.width);
