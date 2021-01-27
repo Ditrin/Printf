@@ -6,13 +6,11 @@
 /*   By: cdanette <cdanette@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 05:51:49 by cdanette          #+#    #+#             */
-/*   Updated: 2021/01/24 05:53:08 by cdanette         ###   ########.fr       */
+/*   Updated: 2021/01/27 00:28:29 by cdanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "ft_printf.h"
-#include <stdarg.h>
 
 char	*ft_zero(char *str, int len, int kk)
 {
@@ -66,9 +64,8 @@ char	*ft_space(char *str, t_hole hole, int len)
 	i = 0;
 	if (!(new_str = ft_calloc(sizeof(char), hole.width + 1)))
 		return (NULL);
-	if (hole.minus > 0)
+	if (hole.minus)
 	{
-		new_str[i++] = '-';
 		ft_memset(new_str + len, ' ', hole.width - len);
 		ft_memcpy(new_str, str, len);
 	}
@@ -87,16 +84,16 @@ int		ft_fun_d(int n, t_hole hole)
 	int		len;
 
 	number = ft_itoa(n);
-	len = ft_strlen(number);
+	len = (!hole.prec && !n ? 0 : ft_strlen(number));
 	if (hole.prec == 0 && (ft_atoi(number) == 0 || hole.width > len))
-		number = ft_space(number, hole, 0);
-	if (hole.prec > len)
+		number = ft_space(number, hole, len);
+	if (hole.prec >= len)
 		number = ft_zero(number, len, hole.prec);
 	len = ft_strlen(number);
 	if (hole.width > len)
 	{
 		if (hole.prec == 0)
-			number = ft_space(number, hole, 0);
+			number = ft_space(number, hole, len);
 		else if (hole.zero > 0 && hole.prec < 0 && hole.minus > 0)
 			return (-1);
 		else if (hole.zero > 0 && hole.prec < 0)

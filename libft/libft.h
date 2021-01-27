@@ -6,7 +6,7 @@
 /*   By: cdanette <cdanette@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 01:21:49 by cdanette          #+#    #+#             */
-/*   Updated: 2021/01/24 05:48:28 by cdanette         ###   ########.fr       */
+/*   Updated: 2021/01/27 00:29:03 by cdanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,9 @@ void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
 char		**ft_split(char const *s, char c);
-char		*ft_itoa(int n);
+char		*ft_itoa(long int n);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char		*ft_itoa_base_upper(intmax_t val, intmax_t base);
 char		*ft_itoa_base(uintmax_t val, uintmax_t base);
-
 
 #endif

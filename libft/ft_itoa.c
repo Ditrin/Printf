@@ -6,16 +6,16 @@
 /*   By: cdanette <cdanette@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:53:51 by cdanette          #+#    #+#             */
-/*   Updated: 2020/12/20 00:08:36 by cdanette         ###   ########.fr       */
+/*   Updated: 2021/01/27 00:23:02 by cdanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_count(int num)
+static int	ft_count(long int num)
 {
-	int				i;
-	unsigned int	unum;
+	long int			i;
+	unsigned int		unum;
 
 	i = 0;
 	if (num < 0)
@@ -35,14 +35,14 @@ static int	ft_count(int num)
 	return (i);
 }
 
-char		*ft_itoa(int n)
+char		*ft_itoa(long int n)
 {
 	char			*str;
-	int				i;
+	long int		i;
 	unsigned int	unum;
 
 	i = ft_count(n);
-	if (!(str = malloc(sizeof(char) * i + 1)))
+	if (!(str = ft_calloc(sizeof(char), i + 1)))
 		return (NULL);
 	str[i] = '\0';
 	if (n < 0)

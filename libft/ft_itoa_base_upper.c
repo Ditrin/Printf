@@ -6,13 +6,13 @@
 /*   By: cdanette <cdanette@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 05:47:06 by cdanette          #+#    #+#             */
-/*   Updated: 2021/01/24 05:47:25 by cdanette         ###   ########.fr       */
+/*   Updated: 2021/01/27 00:26:34 by cdanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_itoa_base_upper(intmax_t val, intmax_t base)
+char			*ft_itoa_base_upper(intmax_t val, intmax_t base)
 {
 	long long	n;
 	char		*s;
@@ -35,4 +35,3 @@ char	*ft_itoa_base_upper(intmax_t val, intmax_t base)
 	(i == 0) ? s[i] = '-' : 0;
 	return (s);
 }
-

@@ -6,57 +6,38 @@
 /*   By: cdanette <cdanette@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 05:53:53 by cdanette          #+#    #+#             */
-/*   Updated: 2021/01/24 05:54:35 by cdanette         ###   ########.fr       */
+/*   Updated: 2021/01/27 00:28:19 by cdanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "ft_printf.h"
-#include <stdarg.h>
 
-int	ft_fun_s(char *str, t_hole hole)
+int		ft_putnchar(char c, int n)
 {
-	char	abc;
+	int i;
+
+	i = 0;
+	while (i < n)
+	{
+		write(1, &c, 1);
+		i++;
+	}
+	return (i);
+}
+
+int		ft_fun_s(va_list ap, t_hole hole)
+{
+	char	*str;
 	int		len;
 	int		i;
 
-	i = 0;
-	len = 0;
-	if (hole.zero == 1)
-		abc = '0';
-	else
-		abc = ' ';
+	str = va_arg(ap, char *);
 	if (str == NULL)
 		str = "(null)";
 	len = ft_strlen(str);
-	if (hole.minus == 1)
-	{
-		abc = ' ';
-		if (hole.prec != -1 && hole.prec < len)
-			len = hole.prec;
-		write(1, str, len);
-		while ((hole.width - len) > 0)
-		{
-			write(1, &abc, 1);
-			hole.width--;
-			i++;
-		}
-	}
-	else if (hole.minus == 0)
-	{
-		if (hole.prec != -1 && hole.prec < len)
-			len = hole.prec;
-		if (hole.width > len)
-		{
-			while ((hole.width - len) > 0)
-			{
-				write(1, &abc, 1);
-				hole.width--;
-				i++;
-			}
-		}
-		write(1, str, len);
-	}
-	len += i;
-	return (len);
+	len = (hole.prec >= 0 && hole.prec < len ? hole.prec : len);
+	i = (!hole.minus ? ft_putnchar(' ', hole.width - len) : 0);
+	i += write(1, str, len);
+	i += (hole.minus ? ft_putnchar(' ', hole.width - len) : 0);
+	return (i);
 }

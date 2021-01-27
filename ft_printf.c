@@ -6,22 +6,11 @@
 /*   By: cdanette <cdanette@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 02:00:19 by cdanette          #+#    #+#             */
-/*   Updated: 2021/01/24 06:07:25 by cdanette         ###   ########.fr       */
+/*   Updated: 2021/01/27 00:29:20 by cdanette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "ft_printf.h"
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
-
- void	ft_putxnbr_fd(unsigned int n, int fd)
- {
- 	if (n >= 16)
- 		ft_putxnbr_fd(n / 16, fd);
- 	ft_putchar_fd(n % 16 + (n % 16 > 9 ? 'A' - 10 : '0'), fd);
- }
 
 t_hole	init_hole(t_hole hole)
 {
@@ -32,36 +21,44 @@ t_hole	init_hole(t_hole hole)
 	return (hole);
 }
 
+t_hole	side_hole(t_hole hole)
+{
+	if (hole.width < 0 && (hole.minus = 1))
+		hole.width *= -1;
+	if (hole.minus || hole.prec >= 0)
+		hole.zero = 0;
+	return (hole);
+}
+
 int		ft_type(char **str, va_list ap, t_hole hole)
 {
-	char	*specif;
 	int		count;
 
-	specif = "cspdiuxX%";
 	count = 0;
-	if (ft_strchr(specif, **str))
+	if (ft_strchr("cspdiuxX%", **str))
 	{
 		if ((**str == 'c') && ++*str)
-			count = ft_fun_c(&hole, ap);
+			count = ft_fun_c(va_arg(ap, int), &hole, 0);
 		else if (**str == 's' && ++*str)
-			count = ft_fun_s(va_arg(ap, char *), hole);
+			count = ft_fun_s(ap, hole);
 		else if (**str == 'p' && ++*str)
 			count = ft_fun_p((unsigned long long)va_arg(ap, void *), hole);
 		else if ((**str == 'd' || **str == 'i') && ++*str)
 			count = ft_fun_d(va_arg(ap, int), hole);
-		else if (**str == 'u'&& ++*str)
-			count = ft_fun_u(va_arg(ap, unsigned int), hole);
-		else if (**str == 'x')
-			ft_putxnbr_fd(va_arg(ap, unsigned int), 1); //редить функцию
-		else if (**str == 'X')
-			ft_putnbr_fd(va_arg(ap, unsigned int), 1); //редить функцию
-		else if (**str == '%')
-			count = ft_fun_per(hole);
+		else if (**str == 'u' && ++*str)
+			count = ft_fun_u((unsigned int)va_arg(ap, unsigned int), hole);
+		else if (**str == 'x' || **str == 'X')
+		{
+			count = ft_fun_x(va_arg(ap, unsigned int), hole, **str, 0);
+			++*str;
 		}
+		else if (**str == '%' && ++*str)
+			count = ft_fun_c('%', &hole, 0);
+	}
 	return (count);
 }
 
-int ft_parser(char **str, va_list ap, t_hole hole)
+int		ft_parser(char **str, va_list ap, t_hole hole)
 {
 	while (**str == '-' || **str == '.' || **str == '*' || ft_isdigit(**str))
 	{
@@ -86,10 +83,10 @@ int ft_parser(char **str, va_list ap, t_hole hole)
 				(*str)++;
 		}
 	}
-	return (ft_type(str, ap, hole));
+	return (ft_type(str, ap, side_hole(hole)));
 }
 
-int	ft_printf(char *str, ...)
+int		ft_printf(char *str, ...)
 {
 	va_list	ap;
 	t_hole	hole;
@@ -101,18 +98,15 @@ int	ft_printf(char *str, ...)
 		return (-1);
 	while (*str != '\0')
 	{
-		if (*str && *str == '%')
+		if (*str == '%' && ++str)
 		{
-			str++;
 			hole = init_hole(hole);
 			if (*str)
 				nbr += ft_parser(&str, ap, hole);
 		}
-
 		else if (*str && *str != '%')
 		{
-			write(1, &*str, 1);
-			nbr += 1;
+			nbr += write(1, &*str, 1);
 			str += 1;
 		}
 	}
